@@ -70,7 +70,8 @@
                   (a) <b> parallel-VC </b>: A sequence-to-sequence voice conversion system with parallel speech data between the foreign accented and native speakers.<br>
                   (b) <b> BNF-FAC </b>: This is a FAC system that takes PPG as input and generates acoustic features [1].<br>
                   (c) <b> BNF-PC-FAC</b>: This system is an extension from system (b) with a pronuciation correction model [2].<br>
-                  (d) <b> TTS-FAC </b>: Our proposed FAC system with TTS pretraining.<br>
+                  (d) <b> TTS </b>: The multi-speaker TTS system, which is the pretrained TTS. <br>
+                  (e) <b> TTS-FAC </b>: Our proposed FAC system with TTS pretraining.<br>
                   <br>
 
                   <b>Foreign Accented Speech</b>: The natural speech from a non-native target speaker, we hope to remove the foreign accents in the speech and preserve the speaker identity. <br>
@@ -81,61 +82,190 @@
                     <table class="table">
                     <thead>
                       <tr>
-                        <th colspan="5">Convert Indian Accented English Speech to Native</th>
+                        <th colspan="5">Convert Chinese Accented English Speech to Native</th>
                       </tr>
                     </thead>
                     <tbody>
 
                       <tr>
-                        <th> </th>
-                        <td>Indian Accented Speech (female) </td>
-                        <td>Indian Accented Speech (male) </td>
+                        <th> System </th>
+                        <td>Chinese female speaker </td>
+                        <td>Chinese male speaker </td>
+                      </tr>
+                      <tr>
+                        <th> Accented Speech </th>
+                        <td>                          <audio controls>
+                                                  <source src="./audio/accent/LXC.wav" type="audio/wav" />
+                                                  Your browser does not support the audio element.
+                                                  </audio></td>
+                        <td>                      <audio controls>
+                                                <source src="./audio/accent/TXHC.wav" type="audio/wav" />
+                                                  Your browser does not support the audio element.
+                                                    </audio></td>
+
                       </tr>
                       <tr>
                         <th>(a) parallel-VC </th>
                         <td>
                           <audio controls>
-                            <source src="./audio/vcc/T10/SEF1_TEF1.wav" type="audio/wav" />
+                            <source src="./audio/parallel/LXC.wav" type="audio/wav" />
                                                   Your browser does not support the audio element.
                           </audio>
                         </td>
                         <td>                          <audio controls>
-                                                  <source src="./audio/vcc/T10/SEF1_TEM1.wav" type="audio/wav" />
+                                                  <source src="./audio/parallel/TXHC.wav" type="audio/wav" />
                                                   Your browser does not support the audio element.
                                                   </audio></td>
                       </tr>
                       <tr>
                         <th>(b) BNF-FAC </th>
                         <td>                          <audio controls>
-                                                  <source src="./audio/vcc/T13/SEF1_TEF1.wav" type="audio/wav" />
+                                                  <source src="./audio/bnf/LXC.wav" type="audio/wav" />
                                                   Your browser does not support the audio element.
                                                   </audio></td>
                         <td>                          <audio controls>
-                                                  <source src="./audio/vcc/T13/SEF1_TEM1.wav" type="audio/wav" />
+                                                  <source src="./audio/bnf/TXHC.wav" type="audio/wav" />
                                                   Your browser does not support the audio element.
                                                   </audio></td>
                       </tr>
                       <tr>
                         <th> (c) BNF-PC-FAC </th>
                         <td>                          <audio controls>
-                                                  <source src="./audio/vcc/T25/SEF1_TEF1.wav" type="audio/wav" />
+                                                  <source src="./audio/pcm/LXC.wav" type="audio/wav" />
                                                   Your browser does not support the audio element.
                                                   </audio></td>
                         <td>                          <audio controls>
-                                                  <source src="./audio/vcc/T25/SEF1_TEM1.wav" type="audio/wav" />
+                                                      <source src="./audio/pcm/TXHC.wav" type="audio/wav" />
+                                                      Your browser does not support the audio element.
+                                                      </audio></td>
+                      </tr>
+                      <tr>
+                        <th> (d) TTS </th>
+                        <td>                          <audio controls>
+                                                  <source src="./audio/tts/LXC.wav" type="audio/wav" />
+                                                  Your browser does not support the audio element.
+                                                  </audio></td>
+                        <td>                          <audio controls>
+                                                  <source src="./audio/tts/TXHC.wav" type="audio/wav" />
                                                   Your browser does not support the audio element.
                                                   </audio></td>
                       </tr>
                       <tr>
-                        <th> (d) TTS-FAC </th>
+                        <th> (e) TTS-FAC </th>
                         <td>                          <audio controls>
-                                                  <source src="./audio/vcc/T29/SEF1_TEF1.wav" type="audio/wav" />
+                                                  <source src="./audio/fac/LXC.wav" type="audio/wav" />
+                                                  Your browser does not support the audio element.
+                                                  </audio></td>
+                    <td>                          <audio controls>
+                                                 <source src="./audio/fac/TXHC.wav" type="audio/wav" />
+                                                  Your browser does not support the audio element.
+                                                  </audio></td>
+
+
+                      <tr>
+                        <th> Native Speech (Reference) </th>
+                        <td>                          <audio controls>
+                                                  <source src="./audio/native/LXC.wav" type="audio/wav" />
+                                                  Your browser does not support the audio element.
+                                                  </audio></td>
+                                                  <td>                          <audio controls>
+                                                                            <source src="./audio/native/TXHC.wav" type="audio/wav" />
+                                                                            Your browser does not support the audio element.
+                                                                            </audio></td>
+
+                      </tr>
+                      <tr>
+                        <th colspan="5">Convert Indian Accented English Speech to Native</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+
+                      <tr>
+                        <th> System </th>
+                        <td>Indian female speaker </td>
+                        <td>Indian male speaker </td>
+                      </tr>
+                      <tr>
+                        <th> Accented Speech </th>
+                        <td>                          <audio controls>
+                                                  <source src="./audio/accent/TNI.wav" type="audio/wav" />
+                                                  Your browser does not support the audio element.
+                                                  </audio></td>
+                        <td>                      <audio controls>
+                                                <source src="./audio/accent/ASI.wav" type="audio/wav" />
+                                                  Your browser does not support the audio element.
+                                                    </audio></td>
+
+                      </tr>
+                      <tr>
+                        <th>(a) parallel-VC </th>
+                        <td>
+                          <audio controls>
+                            <source src="./audio/parallel/TNI.wav" type="audio/wav" />
+                                                  Your browser does not support the audio element.
+                          </audio>
+                        </td>
+                        <td>                          <audio controls>
+                                                  <source src="./audio/parallel/ASI.wav" type="audio/wav" />
+                                                  Your browser does not support the audio element.
+                                                  </audio></td>
+                      </tr>
+                      <tr>
+                        <th>(b) BNF-FAC </th>
+                        <td>                          <audio controls>
+                                                  <source src="./audio/bnf/TNI.wav" type="audio/wav" />
                                                   Your browser does not support the audio element.
                                                   </audio></td>
                         <td>                          <audio controls>
-                                                  <source src="./audio/vcc/T29/SEF1_TEM1.wav" type="audio/wav" />
+                                                  <source src="./audio/bnf/ASI.wav" type="audio/wav" />
                                                   Your browser does not support the audio element.
                                                   </audio></td>
+                      </tr>
+                      <tr>
+                        <th> (c) BNF-PC-FAC </th>
+                        <td>                          <audio controls>
+                                                  <source src="./audio/pcm/TNI.wav" type="audio/wav" />
+                                                  Your browser does not support the audio element.
+                                                  </audio></td>
+                        <td>                          <audio controls>
+                                                      <source src="./audio/pcm/ASI.wav" type="audio/wav" />
+                                                      Your browser does not support the audio element.
+                                                      </audio></td>
+                      </tr>
+                      <tr>
+                        <th> (d) TTS </th>
+                        <td>                          <audio controls>
+                                                  <source src="./audio/tts/TNI.wav" type="audio/wav" />
+                                                  Your browser does not support the audio element.
+                                                  </audio></td>
+                        <td>                          <audio controls>
+                                                  <source src="./audio/tts/ASI.wav" type="audio/wav" />
+                                                  Your browser does not support the audio element.
+                                                  </audio></td>
+                      </tr>
+                      <tr>
+                        <th> (e) TTS-FAC </th>
+                        <td>                          <audio controls>
+                                                  <source src="./audio/fac/TNI.wav" type="audio/wav" />
+                                                  Your browser does not support the audio element.
+                                                  </audio></td>
+                    <td>                          <audio controls>
+                                                 <source src="./audio/fac/ASI.wav" type="audio/wav" />
+                                                  Your browser does not support the audio element.
+                                                  </audio></td>
+
+
+                      <tr>
+                        <th> Native Speech </th>
+                        <td>                          <audio controls>
+                                                  <source src="./audio/native/TNI.wav" type="audio/wav" />
+                                                  Your browser does not support the audio element.
+                                                  </audio></td>
+                                                  <td>                          <audio controls>
+                                                                            <source src="./audio/native/ASI.wav" type="audio/wav" />
+                                                                            Your browser does not support the audio element.
+                                                                            </audio></td>
+
                       </tr>
 
                     </tbody>
