@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
     integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
-  <title>FOREIGN ACCENT CONVERSION WITH TEXT-TO-SPEECH PRETRAINING</title>
+  <title>TTS-GUIDED TRAINING FOR ACCENT CONVERSION WITHOUT PARALLEL DATA</title>
 </head>
 <style type="text/css">
   /* table {
@@ -47,7 +47,7 @@
         <div class="row align-items-center">
           <div class="col-md-12">
             <h2><a class="text-light">
-               FOREIGN ACCENT CONVERSION WITH TEXT-TO-SPEECH PRETRAINING</a></h2>
+               TTS-GUIDED TRAINING FOR ACCENT CONVERSION<br> WITHOUT PARALLEL DATA</a></h2>
             <p>
 
               <div class="row">
@@ -67,22 +67,22 @@
           <hr>
                 <p>
 
-                  (a) <b> parallel-VC </b>: A sequence-to-sequence voice conversion system with parallel speech data between the foreign accented and native speakers.<br>
-                  (b) <b> BNF-FAC </b>: This is a FAC system that takes PPG as input and generates acoustic features [1].<br>
-                  (c) <b> BNF-PC-FAC</b>: This system is an extension from system (b) with a pronuciation correction model [2].<br>
-                  (d) <b> TTS </b>: The multi-speaker TTS system, which is the pretrained native TTS. <br>
-                  (e) <b> TTS-FAC </b>: Our proposed FAC system with TTS pretraining.<br>
+                  (a) <b> parallel-VC </b>: A sequence-to-sequence voice conversion system with parallel speech data between the source and target accents. This system cannot preserve the speaker identity. <br>
+                  (b) <b> BNF-AC </b>: This is an accent conversion system that takes bottleneck features as input and generates acoustic features [1].<br>
+                  (c) <b> BNF-PC-AC</b>: This system is an extension from system (b) with a pronuciation correction model [2].<br>
+                  (d) <b> TTS </b>: The multi-speaker TTS system, which is trained with target-accented speech data. <br>
+                  (e) <b> TTS-AC </b>: Our proposed accent conversion system without parallel data.<br>
                   <br>
 
-                  <b>Foreign-Accented Speech</b>: The natural speech from a non-native target speaker, we hope to remove the foreign accents in the speech and preserve the speaker identity. <br>
-                  <b>Native Speech</b>: The natural speech from a native English speaker. It is used as a reference. <br>
+                  <b>source</b>: The natural speech from a speaker with the source accent, we hope to change the accent of his/her speech to the target while preserving the speech content and his/her identity. <br>
+                  <b>target</b>: The natural speech from a different speaker with the target accent. It is used as a reference. In this work, we define American, British, and Canadian English as the target accents. <br>
             <hr>
 
                   <div class="big-screen">
                     <table class="table">
                     <thead>
                       <tr>
-                        <th colspan="5">Convert Chinese Accent to Native </th>
+                        <th colspan="5">Convert Chinese Accent to the Target Accent </th>
                       </tr>
                     </thead>
                     <tbody>
@@ -93,7 +93,7 @@
                         <td>Chinese male speaker </td>
                       </tr>
                       <tr>
-                        <th> Foreign-Accented Speech </th>
+                        <th> Source </th>
                         <td>                          <audio controls>
                                                   <source src="./audio/accent/LXC.wav" type="audio/wav" />
                                                   Your browser does not support the audio element.
@@ -118,7 +118,7 @@
                                                   </audio></td>
                       </tr>
                       <tr>
-                        <th>(b) BNF-FAC </th>
+                        <th>(b) BNF-AC </th>
                         <td>                          <audio controls>
                                                   <source src="./audio/bnf/LXC.wav" type="audio/wav" />
                                                   Your browser does not support the audio element.
@@ -129,7 +129,7 @@
                                                   </audio></td>
                       </tr>
                       <tr>
-                        <th> (c) BNF-PC-FAC </th>
+                        <th> (c) BNF-PC-AC </th>
                         <td>                          <audio controls>
                                                   <source src="./audio/pcm/LXC.wav" type="audio/wav" />
                                                   Your browser does not support the audio element.
@@ -151,7 +151,7 @@
                                                   </audio></td>
                       </tr>
                       <tr>
-                        <th> (e) TTS-FAC </th>
+                        <th> (e) TTS-AC </th>
                         <td>                          <audio controls>
                                                   <source src="./audio/fac/LXC.wav" type="audio/wav" />
                                                   Your browser does not support the audio element.
@@ -163,7 +163,7 @@
 
 
                       <tr>
-                        <th> Native Speech (Reference) </th>
+                        <th> Target (Reference) </th>
                         <td>                          <audio controls>
                                                   <source src="./audio/native/LXC.wav" type="audio/wav" />
                                                   Your browser does not support the audio element.
@@ -175,7 +175,7 @@
 
                       </tr>
                       <tr>
-                        <th colspan="5">Convert Indian Accent to Native</th>
+                        <th colspan="5">Convert Indian Accent to the Target Accent </th>
                       </tr>
                     </thead>
                     <tbody>
@@ -186,7 +186,7 @@
                         <td>Indian male speaker </td>
                       </tr>
                       <tr>
-                        <th> Foreign-Accented Speech </th>
+                        <th> Source </th>
                         <td>                          <audio controls>
                                                   <source src="./audio/accent/TNI.wav" type="audio/wav" />
                                                   Your browser does not support the audio element.
@@ -211,7 +211,7 @@
                                                   </audio></td>
                       </tr>
                       <tr>
-                        <th>(b) BNF-FAC </th>
+                        <th>(b) BNF-AC </th>
                         <td>                          <audio controls>
                                                   <source src="./audio/bnf/TNI.wav" type="audio/wav" />
                                                   Your browser does not support the audio element.
@@ -222,7 +222,7 @@
                                                   </audio></td>
                       </tr>
                       <tr>
-                        <th> (c) BNF-PC-FAC </th>
+                        <th> (c) BNF-PC-AC </th>
                         <td>                          <audio controls>
                                                   <source src="./audio/pcm/TNI.wav" type="audio/wav" />
                                                   Your browser does not support the audio element.
@@ -244,7 +244,7 @@
                                                   </audio></td>
                       </tr>
                       <tr>
-                        <th> (e) TTS-FAC </th>
+                        <th> (e) TTS-AC </th>
                         <td>                          <audio controls>
                                                   <source src="./audio/fac/TNI.wav" type="audio/wav" />
                                                   Your browser does not support the audio element.
@@ -256,7 +256,7 @@
 
 
                       <tr>
-                        <th> Native Speech (Reference) </th>
+                        <th> Target (Reference) </th>
                         <td>                          <audio controls>
                                                   <source src="./audio/native/TNI.wav" type="audio/wav" />
                                                   Your browser does not support the audio element.
