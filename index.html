@@ -1,321 +1,654 @@
 <!doctype html>
 <html lang="en">
-
-<head>
-  <meta name="google-site-verification" content="ftFOlJETX-2KNjaPh8W6s8lhigItRuu9fOmjHZZ0nY0" />
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-
-  <title>TTS-GUIDED TRAINING FOR ACCENT CONVERSION WITHOUT PARALLEL DATA</title>
-</head>
-<style type="text/css">
-  /* table {
+  <head>
+    <meta name="google-site-verification" content="ftFOlJETX-2KNjaPh8W6s8lhigItRuu9fOmjHZZ0nY0" />
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <title>TTS-GUIDED TRAINING FOR ACCENT CONVERSION WITHOUT PARALLEL DATA</title>
+  </head>
+  <style type="text/css">
+    /* table {
     width: 100%;
     table-layout: fixed;
-  }
-
-  audio {
+    }
+    audio {
     width: 100%;
-  }
-
-  thead>tr>th:first-child {
+    }
+    thead>tr>th:first-child {
     width: 96px;
-  } */
-
-  @media (max-width: 767px) {
+    } */
+    @media (max-width: 767px) {
     .big-screen {
-      display: none;
+    display: none;
     }
-  }
-
-  @media (min-width: 767px) {
+    }
+    @media (min-width: 767px) {
     .small-screen {
-      display: none;
+    display: none;
     }
-  }
-</style>
-
-<body>
-  <header class="header">
-    <div class="jumbotron bg-secondary text-center">
-      <div class="container">
-        <div class="row align-items-center">
-          <div class="col-md-12">
-            <h2><a class="text-light">
-               TTS-GUIDED TRAINING FOR ACCENT CONVERSION<br> WITHOUT PARALLEL DATA</a></h2>
-            <p>
-
+    }
+  </style>
+  <body>
+    <header class="header">
+      <div class="jumbotron bg-secondary text-center">
+        <div class="container">
+          <div class="row align-items-center">
+            <div class="col-md-12">
+              <h2><a class="text-light">
+                TTS-GUIDED TRAINING FOR ACCENT CONVERSION<br> WITHOUT PARALLEL DATA</a>
+              </h2>
+              <p>
               <div class="row">
               </div>
-            </p>
-
+              </p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </header>
-  <main>
-    <div class="container">
-      <div class="row" id="result">
-        <div class="col-md-12">
-          <h2>Speech Samples</h2>
-          <hr>
-                <p>
-
-                  (a) <b> parallel-VC </b>: A sequence-to-sequence voice conversion system with parallel speech data between the source and target accents. This system cannot preserve the speaker identity. <br>
-                  (b) <b> BNF-AC </b>: This is an accent conversion system that takes bottleneck features as input and generates acoustic features [1].<br>
-                  (c) <b> BNF-PC-AC</b>: This system is an extension from system (b) with a pronuciation correction model [2].<br>
-                  (d) <b> TTS </b>: The multi-speaker TTS system, which is trained with target-accented speech data. <br>
-                  (e) <b> TTS-AC </b>: Our proposed accent conversion system without parallel data.<br>
-                  <br>
-
-                  <b>source</b>: The natural speech from a speaker with the source accent, we hope to change the accent of his/her speech to the target while preserving the speech content and his/her identity. <br>
-                  <b>target</b>: The natural speech from a different speaker with the target accent. It is used as a reference. In this work, we define American, British, and Canadian English as the target accents. <br>
+    </header>
+    <main>
+      <div class="container">
+        <div class="row" id="result">
+          <div class="col-md-12">
+            <h2>Speech Samples</h2>
             <hr>
-
-                  <div class="big-screen">
-                    <table class="table">
-                    <thead>
-                      <tr>
-                        <th colspan="5">Convert Chinese Accent to the Target Accent </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-
-                      <tr>
-                        <th> System </th>
-                        <td>Chinese female speaker </td>
-                        <td>Chinese male speaker </td>
-                      </tr>
-                      <tr>
-                        <th> Source </th>
-                        <td>                          <audio controls>
-                                                  <source src="./audio/accent/LXC.wav" type="audio/wav" />
-                                                  Your browser does not support the audio element.
-                                                  </audio></td>
-                        <td>                      <audio controls>
-                                                <source src="./audio/accent/TXHC.wav" type="audio/wav" />
-                                                  Your browser does not support the audio element.
-                                                    </audio></td>
-
-                      </tr>
-                      <tr>
-                        <th>(a) parallel-VC </th>
-                        <td>
-                          <audio controls>
-                            <source src="./audio/parallel/LXC.wav" type="audio/wav" />
-                                                  Your browser does not support the audio element.
-                          </audio>
-                        </td>
-                        <td>                          <audio controls>
-                                                  <source src="./audio/parallel/TXHC.wav" type="audio/wav" />
-                                                  Your browser does not support the audio element.
-                                                  </audio></td>
-                      </tr>
-                      <tr>
-                        <th>(b) BNF-AC </th>
-                        <td>                          <audio controls>
-                                                  <source src="./audio/bnf/LXC.wav" type="audio/wav" />
-                                                  Your browser does not support the audio element.
-                                                  </audio></td>
-                        <td>                          <audio controls>
-                                                  <source src="./audio/bnf/TXHC.wav" type="audio/wav" />
-                                                  Your browser does not support the audio element.
-                                                  </audio></td>
-                      </tr>
-                      <tr>
-                        <th> (c) BNF-PC-AC </th>
-                        <td>                          <audio controls>
-                                                  <source src="./audio/pcm/LXC.wav" type="audio/wav" />
-                                                  Your browser does not support the audio element.
-                                                  </audio></td>
-                        <td>                          <audio controls>
-                                                      <source src="./audio/pcm/TXHC.wav" type="audio/wav" />
-                                                      Your browser does not support the audio element.
-                                                      </audio></td>
-                      </tr>
-                      <tr>
-                        <th> (d) TTS </th>
-                        <td>                          <audio controls>
-                                                  <source src="./audio/tts/LXC.wav" type="audio/wav" />
-                                                  Your browser does not support the audio element.
-                                                  </audio></td>
-                        <td>                          <audio controls>
-                                                  <source src="./audio/tts/TXHC.wav" type="audio/wav" />
-                                                  Your browser does not support the audio element.
-                                                  </audio></td>
-                      </tr>
-                      <tr>
-                        <th> (e) TTS-AC </th>
-                        <td>                          <audio controls>
-                                                  <source src="./audio/fac/LXC.wav" type="audio/wav" />
-                                                  Your browser does not support the audio element.
-                                                  </audio></td>
-                    <td>                          <audio controls>
-                                                 <source src="./audio/fac/TXHC.wav" type="audio/wav" />
-                                                  Your browser does not support the audio element.
-                                                  </audio></td>
-
-
-                      <tr>
-                        <th> Target (Reference) </th>
-                        <td>                          <audio controls>
-                                                  <source src="./audio/native/LXC.wav" type="audio/wav" />
-                                                  Your browser does not support the audio element.
-                                                  </audio></td>
-                                                  <td>                          <audio controls>
-                                                                            <source src="./audio/native/TXHC.wav" type="audio/wav" />
-                                                                            Your browser does not support the audio element.
-                                                                            </audio></td>
-
-                      </tr>
-                      <tr>
-                        <th colspan="5">Convert Indian Accent to the Target Accent </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-
-                      <tr>
-                        <th> System </th>
-                        <td>Indian female speaker </td>
-                        <td>Indian male speaker </td>
-                      </tr>
-                      <tr>
-                        <th> Source </th>
-                        <td>                          <audio controls>
-                                                  <source src="./audio/accent/TNI.wav" type="audio/wav" />
-                                                  Your browser does not support the audio element.
-                                                  </audio></td>
-                        <td>                      <audio controls>
-                                                <source src="./audio/accent/ASI.wav" type="audio/wav" />
-                                                  Your browser does not support the audio element.
-                                                    </audio></td>
-
-                      </tr>
-                      <tr>
-                        <th>(a) parallel-VC </th>
-                        <td>
-                          <audio controls>
-                            <source src="./audio/parallel/TNI.wav" type="audio/wav" />
-                                                  Your browser does not support the audio element.
-                          </audio>
-                        </td>
-                        <td>                          <audio controls>
-                                                  <source src="./audio/parallel/ASI.wav" type="audio/wav" />
-                                                  Your browser does not support the audio element.
-                                                  </audio></td>
-                      </tr>
-                      <tr>
-                        <th>(b) BNF-AC </th>
-                        <td>                          <audio controls>
-                                                  <source src="./audio/bnf/TNI.wav" type="audio/wav" />
-                                                  Your browser does not support the audio element.
-                                                  </audio></td>
-                        <td>                          <audio controls>
-                                                  <source src="./audio/bnf/ASI.wav" type="audio/wav" />
-                                                  Your browser does not support the audio element.
-                                                  </audio></td>
-                      </tr>
-                      <tr>
-                        <th> (c) BNF-PC-AC </th>
-                        <td>                          <audio controls>
-                                                  <source src="./audio/pcm/TNI.wav" type="audio/wav" />
-                                                  Your browser does not support the audio element.
-                                                  </audio></td>
-                        <td>                          <audio controls>
-                                                      <source src="./audio/pcm/ASI.wav" type="audio/wav" />
-                                                      Your browser does not support the audio element.
-                                                      </audio></td>
-                      </tr>
-                      <tr>
-                        <th> (d) TTS </th>
-                        <td>                          <audio controls>
-                                                  <source src="./audio/tts/TNI.wav" type="audio/wav" />
-                                                  Your browser does not support the audio element.
-                                                  </audio></td>
-                        <td>                          <audio controls>
-                                                  <source src="./audio/tts/ASI.wav" type="audio/wav" />
-                                                  Your browser does not support the audio element.
-                                                  </audio></td>
-                      </tr>
-                      <tr>
-                        <th> (e) TTS-AC </th>
-                        <td>                          <audio controls>
-                                                  <source src="./audio/fac/TNI.wav" type="audio/wav" />
-                                                  Your browser does not support the audio element.
-                                                  </audio></td>
-                    <td>                          <audio controls>
-                                                 <source src="./audio/fac/ASI.wav" type="audio/wav" />
-                                                  Your browser does not support the audio element.
-                                                  </audio></td>
-
-
-                      <tr>
-                        <th> Target (Reference) </th>
-                        <td>                          <audio controls>
-                                                  <source src="./audio/native/TNI.wav" type="audio/wav" />
-                                                  Your browser does not support the audio element.
-                                                  </audio></td>
-                                                  <td>                          <audio controls>
-                                                                            <source src="./audio/native/ASI.wav" type="audio/wav" />
-                                                                            Your browser does not support the audio element.
-                                                                            </audio></td>
-
-                      </tr>
-
-                    </tbody>
-                    </table>
-                  </div>
-
-        </div>
-      </div>
-      <hr>
-      <div class="row" id="ref">
-        <div class="col">
-          <h2>References</h2>
-          <div>
             <p>
-              <a name="1">[1]</a>
-              Zhao Guanlong, Sonsaat Sinem, Levis John, Chukharev-Hudilainen Evgeny, and Gutierrez-Osuna Ricardo, “Accent conversion using phonetic posteriorgrams,” in IEEE ICASSP, 2018, pp. 5314–5318..<br>
-              <a name="2">[2]</a>
-              Guanlong Zhao, Shaojin Ding, and Ricardo Gutierrez-Osuna, “Converting foreign accent speech without a reference,” IEEE/ACM Transactions on Audio, Speech, and Language Processing, vol. 29, pp. 2367–2381, 2021.
-
-            </p>
+              (a) <b> parallel-VC </b>: A sequence-to-sequence voice conversion system with parallel speech data between the source and target accents. This system cannot preserve the speaker identity. <br>
+              (b) <b> BNF-AC </b>: This is an accent conversion system that takes bottleneck features as input and generates acoustic features [1].<br>
+              (c) <b> BNF-PC-AC</b>: This system is an extension from system (b) with a pronuciation correction model [2].<br>
+              (d) <b> TTS </b>: The multi-speaker TTS system, which is trained with target-accented speech data. <br>
+              (e) <b> TTS-AC </b>: Our proposed accent conversion system without parallel data.<br>
+              <br>
+              <b>source</b>: The natural speech from a speaker with the source accent, we hope to change the accent of his/her speech to the target while preserving the speech content and his/her identity. <br>
+              <b>target</b>: The natural speech from a different speaker with the target accent. It is used as a reference. In this work, we define American, British, and Canadian English as the target accents. <br>
+            <hr>
+            <div class="big-screen">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th colspan="5">Convert Chinese Accent to the Target Accent </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th> System </th>
+                    <td>Chinese female speaker</td>
+                    <td>Chinese male speaker</td>
+                  </tr>
+                  <tr>
+                    <th> Source </th>
+                    <td>
+                      <audio controls id="accent_ch_f_1" hidden>
+                        <source src="./audio/accent/LXC_01.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('accent_ch_f_1').play()">Play</button>
+                      <audio controls id="accent_ch_f_2" hidden>
+                        <source src="./audio/accent/LXC_02.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('accent_ch_f_2').play()">Play</button>
+                      <audio controls id="accent_ch_f_3" hidden>
+                        <source src="./audio/accent/LXC_03.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('accent_ch_f_3').play()">Play</button>
+                    </td>
+                    <td>
+                      <audio controls id="accent_ch_m_1" hidden>
+                        <source src="./audio/accent/TXHC_01.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('accent_ch_m_1').play()">Play</button>
+                      <audio controls id="accent_ch_m_2" hidden>
+                        <source src="./audio/accent/TXHC_02.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('accent_ch_m_2').play()">Play</button>
+                      <audio controls id="accent_ch_m_3" hidden>
+                        <source src="./audio/accent/TXHC_03.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('accent_ch_m_3').play()">Play</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>(a) parallel-VC </th>
+                    <td>
+                      <audio controls id="parallel_ch_f_1" hidden>
+                        <source src="./audio/parallel/LXC_01.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('parallel_ch_f_1').play()">Play</button>
+                      <audio controls id="parallel_ch_f_2" hidden>
+                        <source src="./audio/parallel/LXC_02.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('parallel_ch_f_2').play()">Play</button>
+                      <audio controls id="parallel_ch_f_3" hidden>
+                        <source src="./audio/parallel/LXC_03.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('parallel_ch_f_3').play()">Play</button>
+                    </td>
+                    <td>
+                      <audio controls id="parallel_ch_m_1" hidden>
+                        <source src="./audio/parallel/TXHC_01.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('parallel_ch_m_1').play()">Play</button>
+                      <audio controls id="parallel_ch_m_2" hidden>
+                        <source src="./audio/parallel/TXHC_02.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('parallel_ch_m_2').play()">Play</button>
+                      <audio controls id="parallel_ch_m_3" hidden>
+                        <source src="./audio/parallel/TXHC_03.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('parallel_ch_m_3').play()">Play</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>(b) BNF-AC </th>
+                    <td>
+                      <audio controls id="bnf_ch_f_1" hidden>
+                        <source src="./audio/bnf/LXC_01.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('bnf_ch_f_1').play()">Play</button>
+                      <audio controls id="bnf_ch_f_2" hidden>
+                        <source src="./audio/bnf/LXC_02.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('bnf_ch_f_2').play()">Play</button>
+                      <audio controls id="bnf_ch_f_3" hidden>
+                        <source src="./audio/bnf/LXC_03.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('bnf_ch_f_3').play()">Play</button>
+                    </td>
+                    <td>
+                      <audio controls id="bnf_ch_m_1" hidden>
+                        <source src="./audio/bnf/TXHC_01.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('bnf_ch_m_1').play()">Play</button>
+                      <audio controls id="bnf_ch_m_2" hidden>
+                        <source src="./audio/bnf/TXHC_02.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('bnf_ch_m_2').play()">Play</button>
+                      <audio controls id="bnf_ch_m_3" hidden>
+                        <source src="./audio/bnf/TXHC_03.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('bnf_ch_m_3').play()">Play</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th> (c) BNF-PC-AC </th>
+                    <td>
+                      <audio controls id="pcm_ch_f_1" hidden>
+                        <source src="./audio/pcm/LXC_01.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('pcm_ch_f_1').play()">Play</button>
+                      <audio controls id="pcm_ch_f_2" hidden>
+                        <source src="./audio/pcm/LXC_02.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('pcm_ch_f_2').play()">Play</button>
+                      <audio controls id="pcm_ch_f_3" hidden>
+                        <source src="./audio/pcm/LXC_03.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('pcm_ch_f_3').play()">Play</button>
+                    </td>
+                    <td>
+                      <audio controls id="pcm_ch_m_1" hidden>
+                        <source src="./audio/pcm/TXHC_01.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('pcm_ch_m_1').play()">Play</button>
+                      <audio controls id="pcm_ch_m_2" hidden>
+                        <source src="./audio/pcm/TXHC_02.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('pcm_ch_m_2').play()">Play</button>
+                      <audio controls id="pcm_ch_m_3" hidden>
+                        <source src="./audio/pcm/TXHC_03.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('pcm_ch_m_3').play()">Play</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th> (d) TTS </th>
+                    <td>
+                      <audio controls id="tts_ch_f_1" hidden>
+                        <source src="./audio/tts/LXC_01.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('tts_ch_f_1').play()">Play</button>
+                      <audio controls id="tts_ch_f_2" hidden>
+                        <source src="./audio/tts/LXC_02.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('tts_ch_f_2').play()">Play</button>
+                      <audio controls id="tts_ch_f_3" hidden>
+                        <source src="./audio/tts/LXC_03.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('tts_ch_f_3').play()">Play</button>
+                    </td>
+                    <td>
+                      <audio controls id="tts_ch_m_1" hidden>
+                        <source src="./audio/tts/TXHC_01.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('tts_ch_m_1').play()">Play</button>
+                      <audio controls id="tts_ch_m_2" hidden>
+                        <source src="./audio/tts/TXHC_02.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('tts_ch_m_2').play()">Play</button>
+                      <audio controls id="tts_ch_m_3" hidden>
+                        <source src="./audio/tts/TXHC_03.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('tts_ch_m_3').play()">Play</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th> (e) TTS-AC </th>
+                    <td>
+                      <audio controls id="fac_ch_f_1" hidden>
+                        <source src="./audio/fac/LXC_01.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('fac_ch_f_1').play()">Play</button>
+                      <audio controls id="fac_ch_f_2" hidden>
+                        <source src="./audio/fac/LXC_02.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('fac_ch_f_2').play()">Play</button>
+                      <audio controls id="fac_ch_f_3" hidden>
+                        <source src="./audio/fac/LXC_03.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('fac_ch_f_3').play()">Play</button>
+                    </td>
+                    <td>
+                      <audio controls id="fac_ch_m_1" hidden>
+                        <source src="./audio/fac/TXHC_01.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('fac_ch_m_1').play()">Play</button>
+                      <audio controls id="fac_ch_m_2" hidden>
+                        <source src="./audio/fac/TXHC_02.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('fac_ch_m_2').play()">Play</button>
+                      <audio controls id="fac_ch_m_3" hidden>
+                        <source src="./audio/fac/TXHC_03.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('fac_ch_m_3').play()">Play</button>
+                    </td>
+                  <tr>
+                    <th> Target (Reference) </th>
+                    <td>
+                      <audio controls id="native_ch_f_1" hidden>
+                        <source src="./audio/native/LXC_01.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('native_ch_f_1').play()">Play</button>
+                      <audio controls id="native_ch_f_2" hidden>
+                        <source src="./audio/native/LXC_02.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('native_ch_f_2').play()">Play</button>
+                      <audio controls id="native_ch_f_3" hidden>
+                        <source src="./audio/native/LXC_03.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('native_ch_f_3').play()">Play</button>
+                    </td>
+                    <td>
+                      <audio controls id="native_ch_m_1" hidden>
+                        <source src="./audio/native/TXHC_01.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('native_ch_m_1').play()">Play</button>
+                      <audio controls id="native_ch_m_2" hidden>
+                        <source src="./audio/native/TXHC_02.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('native_ch_m_2').play()">Play</button>
+                      <audio controls id="native_ch_m_3" hidden>
+                        <source src="./audio/native/TXHC_03.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('native_ch_m_3').play()">Play</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th colspan="5">Convert Indian Accent to the Target Accent </th>
+                  </tr>
+                  </thead>
+                <tbody>
+                  <tr>
+                    <th> System </th>
+                    <td>Indian female speaker </td>
+                    <td>Indian male speaker </td>
+                  </tr>
+                  <tr>
+                    <th> Source </th>
+                    <td>
+                      <audio controls id="accent_in_f_1" hidden>
+                        <source src="./audio/accent/TNI_01.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('accent_in_f_1').play()">Play</button>
+                      <audio controls id="accent_in_f_2" hidden>
+                        <source src="./audio/accent/TNI_02.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('accent_in_f_2').play()">Play</button>
+                      <audio controls id="accent_in_f_3" hidden>
+                        <source src="./audio/accent/TNI_03.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('accent_in_f_3').play()">Play</button>
+                    </td>
+                    <td>
+                      <audio controls id="accent_in_m_1" hidden>
+                        <source src="./audio/accent/ASI_01.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('accent_in_m_1').play()">Play</button>
+                      <audio controls id="accent_in_m_2" hidden>
+                        <source src="./audio/accent/ASI_02.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('accent_in_m_2').play()">Play</button>
+                      <audio controls id="accent_in_m_3" hidden>
+                        <source src="./audio/accent/ASI_03.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('accent_in_m_3').play()">Play</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>(a) parallel-VC </th>
+                    <td>
+                      <audio controls id="parallel_in_f_1" hidden>
+                        <source src="./audio/parallel/TNI_01.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('parallel_in_f_1').play()">Play</button>
+                      <audio controls id="parallel_in_f_2" hidden>
+                        <source src="./audio/parallel/TNI_02.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('parallel_in_f_2').play()">Play</button>
+                      <audio controls id="parallel_in_f_3" hidden>
+                        <source src="./audio/parallel/TNI_03.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('parallel_in_f_3').play()">Play</button>
+                    </td>
+                    <td>
+                      <audio controls id="parallel_in_m_1" hidden>
+                        <source src="./audio/parallel/ASI_01.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('parallel_in_m_1').play()">Play</button>
+                      <audio controls id="parallel_in_m_2" hidden>
+                        <source src="./audio/parallel/ASI_02.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('parallel_in_m_2').play()">Play</button>
+                      <audio controls id="parallel_in_m_3" hidden>
+                        <source src="./audio/parallel/ASI_03.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('parallel_in_m_3').play()">Play</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>(b) BNF-AC </th>
+                    <td>
+                      <audio controls id="bnf_in_f_1" hidden>
+                        <source src="./audio/bnf/TNI_01.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('bnf_in_f_1').play()">Play</button>
+                      <audio controls id="bnf_in_f_2" hidden>
+                        <source src="./audio/bnf/TNI_02.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('bnf_in_f_2').play()">Play</button>
+                      <audio controls id="bnf_in_f_3" hidden>
+                        <source src="./audio/bnf/TNI_03.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('bnf_in_f_3').play()">Play</button>
+                    </td>
+                    <td>
+                      <audio controls id="bnf_in_m_1" hidden>
+                        <source src="./audio/bnf/ASI_01.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('bnf_in_m_1').play()">Play</button>
+                      <audio controls id="bnf_in_m_2" hidden>
+                        <source src="./audio/bnf/ASI_02.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('bnf_in_m_2').play()">Play</button>
+                      <audio controls id="bnf_in_m_3" hidden>
+                        <source src="./audio/bnf/ASI_03.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('bnf_in_m_3').play()">Play</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th> (c) BNF-PC-AC </th>
+                    <td>
+                      <audio controls id="pcm_in_f_1" hidden>
+                        <source src="./audio/pcm/TNI_01.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('pcm_in_f_1').play()">Play</button>
+                      <audio controls id="pcm_in_f_2" hidden>
+                        <source src="./audio/pcm/TNI_02.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('pcm_in_f_2').play()">Play</button>
+                      <audio controls id="pcm_in_f_3" hidden>
+                        <source src="./audio/pcm/TNI_03.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('pcm_in_f_3').play()">Play</button>
+                    </td>
+                    <td>
+                      <audio controls id="pcm_in_m_1" hidden>
+                        <source src="./audio/pcm/ASI_01.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('pcm_in_m_1').play()">Play</button>
+                      <audio controls id="pcm_in_m_2" hidden>
+                        <source src="./audio/pcm/ASI_02.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('pcm_in_m_2').play()">Play</button>
+                      <audio controls id="pcm_in_m_3" hidden>
+                        <source src="./audio/pcm/ASI_03.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('pcm_in_m_3').play()">Play</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th> (d) TTS </th>
+                    <td>
+                      <audio controls id="tts_in_f_1" hidden>
+                        <source src="./audio/tts/TNI_01.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('tts_in_f_1').play()">Play</button>
+                      <audio controls id="tts_in_f_2" hidden>
+                        <source src="./audio/tts/TNI_02.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('tts_in_f_2').play()">Play</button>
+                      <audio controls id="tts_in_f_3" hidden>
+                        <source src="./audio/tts/TNI_03.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('tts_in_f_3').play()">Play</button>
+                    </td>
+                    <td>
+                      <audio controls id="tts_in_m_1" hidden>
+                        <source src="./audio/tts/ASI_01.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('tts_in_m_1').play()">Play</button>
+                      <audio controls id="tts_in_m_2" hidden>
+                        <source src="./audio/tts/ASI_02.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('tts_in_m_2').play()">Play</button>
+                      <audio controls id="tts_in_m_3" hidden>
+                        <source src="./audio/tts/ASI_03.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('tts_in_m_3').play()">Play</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th> (e) TTS-AC </th>
+                    <td>
+                      <audio controls id="fac_in_f_1" hidden>
+                        <source src="./audio/fac/TNI_01.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('fac_in_f_1').play()">Play</button>
+                      <audio controls id="fac_in_f_2" hidden>
+                        <source src="./audio/fac/TNI_02.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('fac_in_f_2').play()">Play</button>
+                      <audio controls id="fac_in_f_3" hidden>
+                        <source src="./audio/fac/TNI_03.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('fac_in_f_3').play()">Play</button>
+                    </td>
+                    <td>
+                      <audio controls id="fac_in_m_1" hidden>
+                        <source src="./audio/fac/ASI_01.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('fac_in_m_1').play()">Play</button>
+                      <audio controls id="fac_in_m_2" hidden>
+                        <source src="./audio/fac/ASI_02.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('fac_in_m_2').play()">Play</button>
+                      <audio controls id="fac_in_m_3" hidden>
+                        <source src="./audio/fac/ASI_03.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('fac_in_m_3').play()">Play</button>
+                    </td>
+                  <tr>
+                    <th> Target (Reference) </th>
+                    <td>
+                      <audio controls id="native_in_f_1" hidden>
+                        <source src="./audio/native/TNI_01.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('native_in_f_1').play()">Play</button>
+                      <audio controls id="native_in_f_2" hidden>
+                        <source src="./audio/native/TNI_02.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('native_in_f_2').play()">Play</button>
+                      <audio controls id="native_in_f_3" hidden>
+                        <source src="./audio/native/TNI_03.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('native_in_f_3').play()">Play</button>
+                    </td>
+                    <td>
+                      <audio controls id="native_in_m_1" hidden>
+                        <source src="./audio/native/ASI_01.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('native_in_m_1').play()">Play</button>
+                      <audio controls id="native_in_m_2" hidden>
+                        <source src="./audio/native/ASI_02.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('native_in_m_2').play()">Play</button>
+                      <audio controls id="native_in_m_3" hidden>
+                        <source src="./audio/native/ASI_03.wav" type="audio/wav" />
+                        Your browser does not support the audio element.
+                      </audio>
+                      <button type="button" class="btn btn-info" onclick="document.getElementById('native_in_m_3').play()">Play</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
-      </div>
-      <hr>
-      <!-- <div class="row" id="contact">
+        <hr>
+        <div class="row" id="ref">
+          <div class="col">
+            <h2>References</h2>
+            <div>
+              <p>
+                <a name="1">[1]</a>
+                Zhao Guanlong, Sonsaat Sinem, Levis John, Chukharev-Hudilainen Evgeny, and Gutierrez-Osuna Ricardo, “Accent conversion using phonetic posteriorgrams,” in IEEE ICASSP, 2018, pp. 5314–5318..<br>
+                <a name="2">[2]</a>
+                Guanlong Zhao, Shaojin Ding, and Ricardo Gutierrez-Osuna, “Converting foreign accent speech without a reference,” IEEE/ACM Transactions on Audio, Speech, and Language Processing, vol. 29, pp. 2367–2381, 2021.
+              </p>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <!-- <div class="row" id="contact">
           <div class="col">
             <h2>Contact</h2>
             <div></div>
           </div>
-        </div> -->
-    </div>
-  </main>
-  <footer class="bg-secondary text-light mt-4 pt-3 pb-2 ">
-    <div class="container">
-      <p class="text-center">
-
-      </p>
-    </div>
-  </footer>
-  <!-- Optional JavaScript -->
-  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-    crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
-    integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-    crossorigin="anonymous"></script>
-</body>
-
+          </div> -->
+      </div>
+    </main>
+    <footer class="bg-secondary text-light mt-4 pt-3 pb-2 ">
+      <div class="container">
+        <p class="text-center">
+        </p>
+      </div>
+    </footer>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+      integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+      crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+      integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+      crossorigin="anonymous"></script>
+  </body>
 </html>
